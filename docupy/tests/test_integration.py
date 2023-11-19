@@ -39,22 +39,23 @@ def test_collect_functions_and_docstrings():
 
 # Test for generate_documentation function
 def test_generate_documentation():
-    subfolders = ["/project/subfolder1", "/project/subfolder2"]
+    subfolders = ["./project/subfolder1", "./project/subfolder2"]
     functions_docstrings = {
-        "/project/module1.py": {"function_one": "Docstring one."},
-        "/project/module2.py": {"function_two": "Docstring two."},
+        "./project/module1.py": {"function_one": "Docstring one."},
+        "./project/module2.py": {"function_two": "Docstring two."},
     }
-    os.makedirs("/project")
-    os.makedirs("/project/subfolder1")
-    os.makedirs("/project/subfolder2")
-    with open("/project/module1.py", "w") as file:
+    os.makedirs("./project")
+    os.makedirs("./project/subfolder1")
+    os.makedirs("./project/subfolder2")
+    with open("./project/module1.py", "w") as file:
         file.write("def function_one(): pass")
-    with open("/project/module2.py", "w") as file:
-        
-    dp = DocuPy("/project")
-    documentation = generate_documentation(subfolders, functions_docstrings)
+    with open("./project/module2.py", "w") as file:
+        file.write("def function_two(): pass")
+
+    dp = DocuPy("./project")
+    # documentation = dp.documentation
 
     # Check if the output contains expected substrings (simplified check)
-    assert "<h2 class='subfolders-header'>Subfolders:</h2>" in documentation
-    assert "<h3 class='module-name'>/project/module1.py:</h3>" in documentation
-    assert "function_one: Docstring one." in documentation
+    assert "<h2 class='subfolders-header'>Subfolders:</h2>" in dp.documentation
+    assert "<h3 class='module-name'>./project/module1.py:</h3>" in dp.documentation
+    assert "function_one: Docstring one." in dp.documentation
